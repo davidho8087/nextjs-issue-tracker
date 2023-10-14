@@ -13,12 +13,12 @@ async function IssueDetailsPage({ params }: Props) {
   const issue = await prisma.issue.findUnique({
     where: { id: parseInt(params.id) },
   })
-  await delay(2000)
 
   // issue not exist
   if (!issue) {
     notFound()
   }
+  await delay(2000)
 
   return (
     <div>

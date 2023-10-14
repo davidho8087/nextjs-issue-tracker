@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link, Table } from '@radix-ui/themes'
+import { Table } from '@radix-ui/themes'
 import prisma from '@/prisma/client'
+import Link from '../components/Link'
 import IssueStatusBadge from '@/app/components/IssueStatusBadge'
-import delay from 'delay'
 import IssueAction from '@/app/issues/IssueAction'
 // import Link from 'next/link'
 // use Link from radixUI will lose client side navigation ( full reload )
@@ -11,7 +11,7 @@ import IssueAction from '@/app/issues/IssueAction'
 // has prisma fetch, use async
 async function IssuesPage() {
   const issues = await prisma.issue.findMany()
-  await delay(2000)
+
   return (
     <div>
       <IssueAction />
