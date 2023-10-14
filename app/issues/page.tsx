@@ -1,8 +1,8 @@
-import IssueStatusBadge from '@/app/components/IssueStatusBadge'
-import IssueAction from '@/app/issues/IssueAction'
 import prisma from '@/prisma/client'
 import { Table } from '@radix-ui/themes'
-import Link from '../components/Link'
+import { IssueStatusBadge, Link } from '@/app/components'
+import IssueAction from '@/app/issues/IssueAction'
+
 // import Link from 'next/link'
 // use Link from radixUI will lose client side navigation ( full reload )
 // Therefore we need custom component to combine both next Link and radix Link.

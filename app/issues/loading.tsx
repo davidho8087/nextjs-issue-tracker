@@ -1,7 +1,6 @@
+import { Skeleton } from '@/app/components'
 import IssueAction from '@/app/issues/IssueAction'
 import { Table } from '@radix-ui/themes'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 
 function LoadingIssuesPage() {
   //  render 5 rows of skeletons as replacing issues array as mock
