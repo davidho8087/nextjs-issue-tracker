@@ -1,8 +1,9 @@
 'use client'
 
 import { Button, Callout, TextField } from '@radix-ui/themes'
-import SimpleMDE from 'react-simplemde-editor'
-import { Controller, useForm } from 'react-hook-form'
+// import SimpleMDE from 'react-simplemde-editor'
+import dynamic from 'next/dynamic'
+import { Controller, useForm, SubmitHandler } from 'react-hook-form'
 import 'easymde/dist/easymde.min.css'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -12,6 +13,18 @@ import { z } from 'zod'
 import ErrorMessage from '@/app/components/ErrorMessage'
 import Spinner from '@/app/components/Spinner'
 import axios from 'axios'
+
+// Navigator is not defined Error (server side error) because of React Markdown editor)
+// Use lazy loading your components.
+// We can disable SSR as part of lazy loading our components.
+// Tt is necessary when we have client side component that access browser APIs.
+
+// We dynamically load this component called lazy loading.
+// Tell next.js not to render this component on the server.
+
+const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
+  ssr: false,
+})
 
 type IssueForm = z.infer<typeof createIssueSchema>
 
@@ -55,11 +68,11 @@ function NewIssuePage() {
         </TextField.Root>
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
+          name='description'
+          control={control}
           render={({ field }) => (
             <SimpleMDE placeholder='Description' {...field} />
           )}
-          name='description'
-          control={control}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button disabled={isSubmitting}>
