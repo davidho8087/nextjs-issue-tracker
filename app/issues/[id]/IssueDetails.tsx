@@ -3,7 +3,7 @@ import { Issue } from '@prisma/client'
 import { Card, Flex, Heading, Text } from '@radix-ui/themes'
 import ReactMarkdown from 'react-markdown'
 
-export const IssueDetails = ({ issue }: { issue: Issue }) => {
+function IssueDetails({ issue }: { issue: Issue }) {
   return (
     <>
       <Heading>{issue.title}</Heading>
@@ -17,3 +17,5 @@ export const IssueDetails = ({ issue }: { issue: Issue }) => {
     </>
   )
 }
+
+export default IssueDetails
