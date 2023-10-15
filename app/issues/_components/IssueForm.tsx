@@ -2,12 +2,11 @@
 
 import { ErrorMessage, Spinner } from '@/app/components'
 import { Button, Callout, TextField } from '@radix-ui/themes'
-// import SimpleMDE from 'react-simplemde-editor'
+import SimpleMDE from 'react-simplemde-editor'
 import { issueSchema } from '@/app/validationSchemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import 'easymde/dist/easymde.min.css'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -22,9 +21,10 @@ import { Issue } from '@prisma/client'
 // We dynamically load this component called lazy loading.
 // Tell next.js not to render this component on the server.
 
-const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
-  ssr: false,
-})
+// Since it is child component, then no need below code.
+// const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
+//   ssr: false,
+// })
 
 type IssueFormData = z.infer<typeof issueSchema>
 
