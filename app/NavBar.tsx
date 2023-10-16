@@ -1,4 +1,5 @@
 'use client'
+import { Skeleton } from '@/app/components'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -60,7 +61,9 @@ function NavLinks() {
 function AuthStatus() {
   const { status, data: session } = useSession()
 
-  if (status === 'loading') return null
+  if (status === 'loading') {
+    return <Skeleton width='3rem' />
+  }
 
   if (status === 'unauthenticated') {
     return (
