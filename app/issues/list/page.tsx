@@ -1,7 +1,7 @@
 import prisma from '@/prisma/client'
 import { Table } from '@radix-ui/themes'
 import { IssueStatusBadge, Link } from '@/app/components'
-import IssueAction from '@/app/issues/IssueAction'
+import IssueAction from '@/app/issues/list/IssueAction'
 
 // import Link from 'next/link'
 // use Link from radixUI will lose client side navigation ( full reload )

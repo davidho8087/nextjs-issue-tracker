@@ -53,7 +53,7 @@ function IssueForm({ issue }: { issue?: Issue }) {
       } else {
         await axios.post('/api/issues', data)
       }
-      router.push('/issues')
+      router.push('/issues/list')
       router.refresh()
     } catch (error) {
       setSubmitting(false)

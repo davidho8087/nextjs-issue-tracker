@@ -3,18 +3,20 @@ import './theme-config.css'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, Roboto_Mono } from 'next/font/google'
-import { Theme } from '@radix-ui/themes'
+import { Container, Theme } from '@radix-ui/themes'
 import NavBar from '@/app/NavBar'
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter',
+  // variable: '--font-inter',
+  // preload: false,
 })
 
-const roboto_mono = Roboto_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-})
+// const roboto_mono = Roboto_Mono({
+//   subsets: ['latin'],
+//   display: 'swap',
+//   preload: true,
+// })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -28,10 +30,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={`${inter.variable} ${roboto_mono.className}`}>
+      <body className={inter.className}>
         <Theme accentColor='violet'>
           <NavBar />
-          <main className='p-5'>{children}</main>
+          <main className='p-5'>
+            <Container>{children}</Container>
+          </main>
           {/*<ThemePanel />*/}
         </Theme>
       </body>
