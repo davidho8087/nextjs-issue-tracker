@@ -57,6 +57,7 @@ function NavBar() {
                     fallback='?'
                     size='2'
                     radius='full'
+                    referrerPolicy='no-referrer'
                   />
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
