@@ -16,7 +16,7 @@ function DeleteIssueButton({ issueId }: { issueId: number }) {
       setDeleting(true)
       await axios.delete('/api/issues/' + issueId)
       // IssuesPage get cached by the router. So we have to call router to refresh
-      router.push('/issues')
+      router.push('/issues/list')
       router.refresh()
     } catch (error) {
       setDeleting(false)
