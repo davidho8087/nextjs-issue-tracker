@@ -1,8 +1,12 @@
 'use client'
 
 import { AlertDialog, Button, Flex } from '@radix-ui/themes'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 function DeleteIssueButton({ issueId }: { issueId: number }) {
+  const router = useRouter()
+
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -22,8 +26,17 @@ function DeleteIssueButton({ issueId }: { issueId: number }) {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button variant='solid' color='red'>
-              Delete
+            <Button
+              variant='solid'
+              color='red'
+              onClick={async () => {
+                await axios.delete('/api/issues/' + issueId)
+                // IssuesPage get cached by the router. So we have to call router to refresh
+                router.push('/issues')
+                router.refresh()
+              }}
+            >
+              Delete Issue
             </Button>
           </AlertDialog.Action>
         </Flex>
