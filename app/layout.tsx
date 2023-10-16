@@ -2,21 +2,20 @@ import '@radix-ui/themes/styles.css'
 import './theme-config.css'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter, Roboto_Mono } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 import { Container, Theme } from '@radix-ui/themes'
 import NavBar from '@/app/NavBar'
+import AuthProvider from '@/app/auth/Provider'
 
-const inter = Inter({
+const roboto = Roboto({
+  display: 'swap',
+  variable: '--font-roboto',
+  adjustFontFallback: true,
+  preload: true,
   subsets: ['latin'],
-  // variable: '--font-inter',
-  // preload: false,
+  style: ['normal'],
+  weight: ['300', '400'],
 })
-
-// const roboto_mono = Roboto_Mono({
-//   subsets: ['latin'],
-//   display: 'swap',
-//   preload: true,
-// })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -30,14 +29,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <Theme accentColor='violet'>
-          <NavBar />
-          <main className='p-5'>
-            <Container>{children}</Container>
-          </main>
-          {/*<ThemePanel />*/}
-        </Theme>
+      <body className={`${roboto.variable} font-sans`}>
+        <AuthProvider>
+          <Theme accentColor='violet'>
+            <NavBar />
+            <main className='p-5'>
+              <Container>{children}</Container>
+            </main>
+            {/*<ThemePanel />*/}
+          </Theme>
+        </AuthProvider>
       </body>
     </html>
   )
