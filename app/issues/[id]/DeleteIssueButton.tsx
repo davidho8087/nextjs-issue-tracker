@@ -23,7 +23,7 @@ function DeleteIssueButton({ issueId }: { issueId: number }) {
           </AlertDialog.Cancel>
           <AlertDialog.Action>
             <Button variant='solid' color='red'>
-              Revoke access
+              Delete
             </Button>
           </AlertDialog.Action>
         </Flex>
