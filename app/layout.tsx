@@ -1,14 +1,19 @@
-import NavBar from '@/app/NavBar'
-import { Theme } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
 import './theme-config.css'
+import './globals.css'
+import type { Metadata } from 'next'
+import { Inter, Roboto_Mono } from 'next/font/google'
+import { Theme } from '@radix-ui/themes'
+import NavBar from '@/app/NavBar'
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+})
+
+const roboto_mono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -23,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.variable}>
+      <body className={`${inter.variable} ${roboto_mono.className}`}>
         <Theme accentColor='violet'>
           <NavBar />
           <main className='p-5'>{children}</main>
