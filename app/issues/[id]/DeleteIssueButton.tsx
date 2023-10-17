@@ -1,5 +1,8 @@
 'use client'
 // Client side execute async await axios
+// We cannot access prisma in client component.
+// Prisma is only available at the server.
+
 import { AlertDialog, Button, Flex } from '@radix-ui/themes'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
