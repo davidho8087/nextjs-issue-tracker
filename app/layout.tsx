@@ -1,6 +1,7 @@
 import '@radix-ui/themes/styles.css'
 import './theme-config.css'
 import './globals.css'
+import QueryClientProvider from '@/app/QueryClientProvider'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { Container, Theme } from '@radix-ui/themes'
@@ -30,15 +31,17 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${roboto.variable} font-sans`}>
-        <AuthProvider>
-          <Theme accentColor='violet'>
-            <NavBar />
-            <main className='p-5'>
-              <Container>{children}</Container>
-            </main>
-            {/*<ThemePanel />*/}
-          </Theme>
-        </AuthProvider>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Theme accentColor='violet'>
+              <NavBar />
+              <main className='p-5'>
+                <Container>{children}</Container>
+              </main>
+              {/*<ThemePanel />*/}
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
       </body>
     </html>
   )
