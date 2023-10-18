@@ -2,14 +2,34 @@ import prisma from '@/prisma/client'
 import { Table } from '@radix-ui/themes'
 import { IssueStatusBadge, Link } from '@/app/components'
 import IssueAction from '@/app/issues/list/IssueAction'
+import { Status } from '@prisma/client'
 
 // import Link from 'next/link'
 // use Link from radixUI will lose client side navigation ( full reload )
 // Therefore we need custom component to combine both next Link and radix Link.
 
 // has prisma fetch, use async
-async function IssuesPage() {
-  const issues = await prisma.issue.findMany()
+
+interface Props {
+  searchParams: { status: Status }
+}
+
+async function IssuesPage({ searchParams }: Props) {
+  const { status: incomingStatus } = searchParams
+  const statuses = Object.values(Status)
+
+  const validStatus = statuses.includes(incomingStatus)
+    ? incomingStatus
+    : undefined
+
+  console.log(searchParams)
+  const issues = await prisma.issue.findMany({
+    where: {
+      status: validStatus,
+    },
+  })
+
+  // To filter issue by status, We pass the status as a query parameter to this page.
 
   return (
     <div>

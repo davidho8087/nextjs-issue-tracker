@@ -1,5 +1,7 @@
 import { Status } from '@prisma/client'
 import { Select } from '@radix-ui/themes'
+import { useRouter, useSearchParams } from 'next/navigation'
+import React from 'react'
 
 // The 1st item doesn't represent any status.
 // So , don't insert value and then set optional for types
@@ -10,10 +12,27 @@ const statuses: { label: string; value?: Status }[] = [
   { label: 'Closed', value: 'CLOSED' },
 ]
 
-// Map the statues
+// 1. Map the statues
+// 2. Use reactRouter to redirect the user.
 function IssueStatusFilter() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
   return (
-    <Select.Root>
+    <Select.Root
+      defaultValue={searchParams.get('status') || ''}
+      onValueChange={(status) => {
+        let query = ''
+
+        const params = new URLSearchParams()
+        if (status && status !== 'ALL') {
+          params.append('status', status)
+          query = `?status=${status}`
+        }
+        
+        router.push('/issues/list' + query)
+      }}
+    >
       <Select.Trigger placeholder={'Filter by status ...'} />
       <Select.Content>
         {statuses.map((status, index) => (
