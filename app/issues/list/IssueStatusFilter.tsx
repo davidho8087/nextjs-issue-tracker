@@ -16,6 +16,8 @@ const statuses: { label: string; value?: Status }[] = [
 // 2. Use reactRouter to redirect the user.
 function IssueStatusFilter() {
   const router = useRouter()
+
+  // this hook can access our current query parameters
   const searchParams = useSearchParams()
 
   return (
@@ -29,7 +31,16 @@ function IssueStatusFilter() {
           params.append('status', status)
           query = `?status=${status}`
         }
-        
+
+        // remain orderBy is existed
+        if (searchParams.get('orderBy')) {
+          params.append('orderBy', searchParams.get('orderBy')!)
+        }
+
+        // if params size is truthy, then we return a question mark follow by
+        // the list of our parameters, otherwise set query to empty string
+        query = params.size ? '?' + params.toString() : ''
+
         router.push('/issues/list' + query)
       }}
     >
