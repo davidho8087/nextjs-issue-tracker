@@ -1,4 +1,5 @@
 'use client'
+// because got onChange event
 
 import {
   ChevronLeftIcon,
@@ -17,7 +18,10 @@ interface Props {
 }
 
 const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
+  // use to access the current URL
   const router = useRouter()
+
+  // use to access the current query params
   const searchParams = useSearchParams()
 
   // When do division my have floating point. Here we use math.set to properly
@@ -29,7 +33,11 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
 
   const changePage = (page: number) => {
     const params = new URLSearchParams(searchParams)
+
+    // page=2
     params.set('page', page.toString())
+    // <url>/?page=2
+    // Push will do re-render?
     router.push('?' + params.toString())
   }
 
