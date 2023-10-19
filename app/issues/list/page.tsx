@@ -5,6 +5,7 @@ import IssueAction from '@/app/issues/list/IssueAction'
 import { Issue, Status } from '@prisma/client'
 import NextLink from 'next/link'
 import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons'
+import Pagination from '@/app/components/Pagination'
 
 // use Link from radixUI will lose client side navigation ( full reload )
 // Therefore we need custom component to combine both next Link and radix Link.
@@ -16,6 +17,7 @@ interface Props {
     status: Status
     orderBy?: string
     sortDirection?: 'asc' | 'desc'
+    page: string
   }
 }
 
@@ -45,6 +47,8 @@ async function IssuesPage({ searchParams }: Props) {
     ? searchParams.status
     : undefined
 
+  const where = { status }
+
   /* orderBy object has to be created before pass to prisma because is dynamic / type error.
    typeScript error indicates that the type of searchParams.orderBy could be undefined,
    which is not allowed for the orderBy field.
@@ -58,15 +62,19 @@ async function IssuesPage({ searchParams }: Props) {
     ? { [searchParams.orderBy as keyof Issue]: sortDirection }
     : undefined
 
+  const page: number = parseInt(searchParams.page) || 1
+  const pageSize = 10
+
   const issues = await prisma.issue.findMany({
-    where: {
-      status,
-    },
+    where,
     orderBy,
+    skip: (page - 1) * pageSize, // Number of records we should skip
+    take: pageSize, // number of records we want to fetch
   })
 
-  // To filter issue by status, We pass the status as a query parameter to this page.
+  const issueCount: number = await prisma.issue.count({ where })
 
+  // To filter issue by status, We pass the status as a query parameter to this page.
   return (
     <div>
       <IssueAction />
@@ -128,6 +136,11 @@ async function IssuesPage({ searchParams }: Props) {
           ))}
         </Table.Body>
       </Table.Root>
+      <Pagination
+        itemCount={issueCount}
+        pageSize={pageSize}
+        currentPage={page}
+      />
     </div>
   )
 }
