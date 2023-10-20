@@ -9,6 +9,7 @@ import IssueTable, {
   IssueQuery,
 } from '@/app/issues/list/IssueTable'
 import { Flex } from '@radix-ui/themes'
+import { Metadata } from 'next'
 
 // use Link from radixUI will lose client side navigation ( full reload )
 // Therefore we need custom component to combine both next Link and radix Link.
@@ -78,5 +79,10 @@ async function IssuesPage({ searchParams }: Props) {
 }
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Issue Tracker - Issue List',
+  description: 'View all project issues',
+}
 
 export default IssuesPage
