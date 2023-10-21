@@ -1,8 +1,22 @@
+import '@radix-ui/themes/styles.css'
+import './theme-config.css'
 import './globals.css'
+import QueryClientProvider from '@/app/QueryClientProvider'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Roboto } from 'next/font/google'
+import { Container, Theme } from '@radix-ui/themes'
+import NavBar from '@/app/NavBar'
+import AuthProvider from '@/app/auth/Provider'
 
-const inter = Inter({ subsets: ['latin'] })
+const roboto = Roboto({
+  display: 'swap',
+  variable: '--font-roboto',
+  adjustFontFallback: true,
+  preload: true,
+  subsets: ['latin'],
+  style: ['normal'],
+  weight: ['300', '400'],
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,8 +29,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang='en'>
+      <body className={`${roboto.variable} font-sans`}>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Theme accentColor='violet'>
+              <NavBar />
+              <main className='p-5'>
+                <Container>{children}</Container>
+              </main>
+              {/*<ThemePanel />*/}
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
+      </body>
     </html>
   )
 }
